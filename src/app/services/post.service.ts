@@ -227,11 +227,11 @@ export class PostService {
   handleWebSocket(data) {
       // new post created
       if(data.action === 'create') {
-        let newPost =this.transformPostData(data.post); 
+        let newPost = this.transformPostData(data.post); 
         if (this.userService.user.id != newPost.user.id && !this.userProfileId) {
           this.posts.unshift(newPost);
           this.postsSubject.next([...this.posts]);
-        }else if (this.userProfileId) {
+        } else if (this.userProfileId) {
           if (this.userService.user.id != newPost.user.id && this.userProfileId == newPost.user.id) {
             this.posts.unshift(newPost);
             this.postsSubject.next([...this.posts]);
@@ -244,14 +244,14 @@ export class PostService {
 
         // delete post
       } else if(data.action === 'delete') {
-        let deletedPost =this.transformPostData(data.post); 
-        let index = this.posts.findIndex( (post) => {
-          return post.id === deletedPost.id;
-        });
-        if (index >= 0 ) {
-          this.posts.splice(index,1);
-          this.postsSubject.next([...this.posts]);
-        }
+          let deletedPost =this.transformPostData(data.post); 
+          let index = this.posts.findIndex( (post) => {
+            return post.id === deletedPost.id;
+          });
+          if (index >= 0 && this.userService.user.id !== deletedPost.user.id) {
+            this.posts.splice(index,1);
+            this.postsSubject.next([...this.posts]);
+          }
       } else if(data.action === 'addLike' || data.action === 'deleteLike') {
         this.handleSocketPost(data.post);
 

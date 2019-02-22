@@ -27,7 +27,7 @@ class="post-wrapper" style="background-color:white;">
         >
             <span *ngIf="post?.user?.id">
                 <a [routerLink]="['/profile/user', post.user.id]" class="user-image-link">
-                    <div class="user-image">
+                    <div class="user-image text-center">
                         {{post.user.firstname + " " + post.user.lastname | transformUsername}}
                     </div>
                 </a>
