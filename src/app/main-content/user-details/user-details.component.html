@@ -1,0 +1,45 @@
+  <div class="user-details text-center"
+  [ngClass] = "{ 'd-none': !isProfile, 'd-md-block': !isProfile}"
+  >
+      <div class="user-color"></div>
+      <!-- if have an image -->
+      <a 
+      *ngIf="userHasImage(user?.imageUrl,userProfile?.imageUrl,isProfile)"
+      [ngStyle]="{'cursor': canChangeImage(user?.id, userProfile?.id, isProfile) ? 'pointer' : null}" 
+      (click)="canChangeImage(user?.id, userProfile?.id, isProfile) ? inputFile.click() : null" class="image-user">
+          <img src="{{userHasImage(user?.imageUrl,userProfile?.imageUrl,isProfile)}}" alt="">
+      </a>
+
+      <!-- if have no image -->
+      <a *ngIf="!userHasImage(user?.imageUrl,userProfile?.imageUrl,isProfile)" 
+      [ngStyle]="{'cursor': canChangeImage(user?.id, userProfile?.id, isProfile) ? 'pointer' : null}" 
+      (click)="canChangeImage(user?.id, userProfile?.id, isProfile) ? inputFile.click() : null"
+      >
+          <div class="user-image">
+              {{ (isProfile ? userProfile?.firstname+" "+userProfile?.lastname : 
+              user?.firstname+" "+user?.lastname) | transformUsername}}
+          </div>
+      </a>
+
+      <form [formGroup]="form">
+        <input style="visibility:hidden" type="file" 
+        (change)="changeImage($event)" #inputFile>
+      </form>
+      
+      <h3 *ngIf="user?.id" style="padding-bottom:20px">
+          <a [routerLink]="!isProfile ? ['/profile/user',user?.id] : null"
+          [ngStyle]="{'cursor' : !isProfile ? 'pointer' : 'text'}"
+          >
+            {{ isProfile ? userProfile?.firstname+" "+userProfile?.lastname : 
+            user?.firstname+" "+user?.lastname }}
+          </a> 
+      </h3>
+      
+      <!-- <div class="following">
+          <p class="first">Posts</p>
+          <p class="last">No Posts.</p>
+      </div> -->
+      <div *ngIf="!isProfile && user?.id" class="view-profile">
+          <a [routerLink]="['/profile/user',user?.id]">View Profile</a>
+      </div>
+  </div>

@@ -1,0 +1,51 @@
+
+<mat-card>
+  <mat-card-title>Update Post</mat-card-title>
+  
+  <mat-spinner *ngIf="isLoading"
+  mode="indeterminate" style="margin:auto;"></mat-spinner>
+  
+  <form [formGroup]="form" *ngIf="!isLoading" (ngSubmit)="updatePost()">
+    <mat-form-field class="example-full-width">
+      <textarea matInput
+      [value]="oldPost.content ? oldPost.content : ''" 
+      formControlName="content"
+      rows="3"
+      placeholder="write something..."></textarea>
+    </mat-form-field>
+
+    <div>
+        <!-- <img mat-card-image> -->
+        <button
+          mat-raised-button color="primary" 
+          (click)="inputFile.click()" type="button">
+          Upload Image
+        </button>
+        <span *ngIf="form.get('image').errors?.invalidMimeType">
+          upload only images with jpg, jpeg, png Extension
+        </span>
+        <input type="file" #inputFile (change)="uploadImage($event)">
+
+        <div class="image-preview text-center" *ngIf="imagePreviewUrl">
+          <img [src]="imagePreviewUrl">
+        </div>
+    </div>
+    
+
+    <mat-card-actions class="text-right">
+      <button class="btn btn-primary"
+      type="submit"
+      mat-raised-button color="primary"
+      [disabled]="!form.value.content && !imagePreviewUrl"
+      >Save Post</button>
+      <button 
+        class="btn btn-primary"
+        mat-raised-button
+        mat-dialog-close>Discard</button>
+    </mat-card-actions>
+  
+  </form>
+  
+</mat-card>
+
+

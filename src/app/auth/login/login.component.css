@@ -1,0 +1,99 @@
+/* dashboard */
+.dashboard {
+    width: 70%;
+    padding-top:30px;
+    padding-right:20px;
+    padding-left:20px;
+    margin:0 auto;
+    box-shadow: 1px 2px 6px rgb(133, 130, 130);
+}
+.dashboard h3 {
+    margin-bottom: 30px;
+    color:rgb(77, 77, 77);
+    font-weight: normal;
+}
+
+.dashboard .login{
+    border-right: 1px solid #e6e6e6;
+    padding-right: 30px;
+}
+
+.dashboard .input {
+    outline: none;
+}
+
+.dashboard .submit {
+    display: inline-block;
+    width: 100%;
+    font-weight: normal;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.dashboard .social {
+    color: white;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.create-account {
+    width: 70%;
+    background-color: white;
+    height:50px;
+    line-height: 50px;
+    margin:0 auto;
+    box-shadow: 0px 2px 6px rgb(133, 130, 130);
+}
+.create-account span{ color:rgb(77, 77, 77);}
+
+.invalid {
+    color: #dc3545;
+    font-size: 80%;
+}
+
+/*  media for screens  */
+@media (max-width: 767.98px) { 
+
+    .dashboard {
+        width: 100%;
+    }
+
+    .dashboard .login{
+        border-right: none;
+        border-bottom: 1px solid #e6e6e6;
+        margin-bottom: 30px;
+        padding-bottom: -40px;
+        
+    }
+    .dashboard .social {
+        padding-left: 15px;
+    }
+    .dashboard .social a {
+        font-size: 14px;
+    }
+    .create-account {
+        width:100%
+    }
+}
+
+/* small devices and phones */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .dashboard {
+        padding-left:50px;
+        padding-right:50px;
+    }
+}
+
+@media (max-width: 991.98px) { 
+    .dashboard {
+        width: 100%;
+    }
+    header .buttons {
+        padding-top: 15px;
+    }
+    .create-account {
+        width:100%
+    }
+ }

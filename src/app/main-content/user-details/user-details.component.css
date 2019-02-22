@@ -1,0 +1,105 @@
+/* user-details */
+.user-details {
+    background-color: #ffffff;
+    border: 1px solid #d4d4d4;
+}
+.user-details .user-color{
+    height: 100px;
+    background-color: #4090db;
+}
+.user-details img {
+    max-width: 55%;
+    max-height: 250px;
+    display: inline-block;
+    margin-top: -70px;
+    border:2px solid white;
+}
+
+
+.user-details .user-image {
+    width: 140px;
+    height: 140px;
+    margin: auto;
+    display: inline-block;
+    margin-top: -40px;
+    border:2px solid white;
+    background-color: #4090db;
+    color:#ffffff;
+    line-height: 123px;
+    font-size: 40px;
+}
+
+.user-details h3 {
+    margin-top: 15px;
+    font-size: 20px;
+}
+.user-details h3 a {
+    text-decoration: none;
+    color:#212529;
+}
+
+.user-details .following {
+    margin-top: 20px;
+    border-top: 1px solid #d4d4d4;
+    padding-top:15px;
+}
+.user-details .following .first{
+    margin-bottom: 0;
+    font-size: 16px;
+    color:rgb(77, 77, 77);
+}
+
+.user-details .following .last{
+    font-weight: bold;
+}
+
+.user-details .view-profile {
+    border-top: 1px solid #d4d4d4;
+    padding-top:15px;
+    padding-bottom: 15px;
+}
+.user-details .view-profile a {
+    text-decoration: none;
+    color: #4090db;
+}
+
+
+/* media query */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .user-details .user-color{
+        height: 80px;
+    }
+
+    .user-details img {
+        margin-top: -40px;
+    }
+     
+}
+
+/*  sm and xs screens  */
+@media (max-width: 767.98px) { 
+    .user-details {
+        margin-bottom: 30px;
+    }
+    .user-details .user-color{
+        height: 150px;
+    }   
+
+    .user-details img {
+        margin-top: -100px;
+    }
+    .user-details h3 {
+        font-size: 24px;
+    }
+    .user-details .following .first{
+        font-size: 18px;
+    }
+    .user-details .view-profile a {
+        font-size: 17px;
+    }
+
+
+}
+
+
+

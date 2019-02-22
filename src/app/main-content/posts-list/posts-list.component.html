@@ -1,0 +1,193 @@
+<!-- loading-spinner -->
+<mat-progress-spinner *ngIf="isLoading" 
+mode="indeterminate" style="margin:auto;margin-top:80px;"></mat-progress-spinner>
+
+<!-- if no posts -->
+<p class="text-center" *ngIf="posts?.length === 0 && !isLoading">No Posts..</p>
+
+<ng-template [ngIf]="posts?.length > 0 && !isLoading">
+
+<div *ngFor="let post of posts" 
+class="post-wrapper" style="background-color:white;">
+  <div class="row post">
+
+    <!-- if user has image -->
+    <ng-template [ngIf]="post.user?.imageUrl">
+      <div class="col-2 post-user-image float-left">
+          <a [routerLink]="['/profile/user', post.user?.id]">
+              <img class="rounded-circle" src="{{post.user?.imageUrl}}" alt="">
+          </a>
+      </div>
+    </ng-template>
+
+      <!-- if not have image -->
+      <ng-template [ngIf]="!post.user?.imageUrl">
+        <div class="col-2 post-user-image float-left"
+        style="width:30px;height:30px;"
+        >
+            <span *ngIf="post?.user?.id">
+                <a [routerLink]="['/profile/user', post.user.id]" class="user-image-link">
+                    <div class="user-image">
+                        {{post.user.firstname + " " + post.user.lastname | transformUsername}}
+                    </div>
+                </a>
+            </span>
+        </div>
+    </ng-template>
+
+      <div class="col-10 post-details">
+          <p class="p1">
+              <a [routerLink]="['/profile/user', user?.id]">
+                  <span class="username">{{ post.user.firstname+" "+ post.user.lastname}}</span> 
+              </a>
+              
+              <ng-template [ngIf]="user?.id === post.user?.id">
+                <span class="options float-right">
+                    <i class="fas fa-ellipsis-v" mat-button [matMenuTriggerFor]="menu"></i>
+                </span>
+                  <mat-menu #menu="matMenu">
+                      <button mat-menu-item (click)="editPost(post)">Edit</button>
+                      <button mat-menu-item (click)="deletePost(post)">Delete</button>
+                  </mat-menu>
+              </ng-template>
+
+
+          </p>
+          <p class="time">{{ post?.createdAt | timeAgo}}</p>
+
+          <p *ngIf="post.content" class="post-text">
+              {{ post.content }}
+          </p>
+          <img *ngIf="post?.imageUrl" [src]="post?.imageUrl" class="post-image" alt="">
+      </div>
+  </div>
+
+
+  <div class="row">
+      <div class="col-12 feedabck">
+          <span class="likes">
+              <i (click)="likeClicked(post)"
+              class="fas fa-heart like-button"
+              [class.not-liked]="!isLiked(post)"
+              [class.is-liked]="isLiked(post)"></i> 
+              <span class="feedabck-number">
+                  {{ post.likes.length }} likes
+                </span>
+          </span>
+          <span class="comments" style="cursor:pointer">
+              <i class="fas fa-comment-alt comment-button"></i> 
+              <span class="feedabck-number">
+                  {{post?.comments.length > 0 ? post.comments.length : 'No'}} Comments
+              </span>              
+          </span>
+      </div>
+  </div>
+
+
+
+  <div class="row comments-wrapper">
+    <div class="col-12">
+        
+    <ng-container *ngFor="let comment of post.comments; let i = index">
+
+        <div class="row comment" *ngIf="editedCommentIndex !== i">
+            <div *ngIf="comment?.user.imageUrl" class="col-1 user">
+                <a [routerLink]="['/profile/user', comment?.user._id]">
+                    <img class="rounded-circle" src="{{comment.user?.imageUrl}}" alt="">
+                </a>
+            </div>
+
+            <a *ngIf="!comment?.user.imageUrl" [routerLink]="['/profile/user', comment?.user._id]"
+                class="col-1 user" style="text-decoration:none"
+            >
+                <div class="comment-image text-center">
+                        {{ comment?.user.firstname+" "+comment?.user.lastname | transformUsername }}
+                </div>
+            </a>
+
+            <div class="col-10 body">
+                <span class="time">{{ comment.createdAt | timeAgo }}</span>
+                <ng-template [ngIf]="post.user?.id === user?.id || comment.user?._id === user?.id">
+                    <span class="options float-right">
+                        <i class="fas fa-ellipsis-v" mat-button [matMenuTriggerFor]="menu"></i>
+                    </span>
+                      <mat-menu #menu="matMenu">
+                          <button mat-menu-item
+                        *ngIf="comment.user?._id === user?.id"
+                          (click)="enableEditComment(post,comment)">Edit</button>
+                          <button mat-menu-item (click)="deleteComment(comment,post)">Delete</button>
+                      </mat-menu>
+                  </ng-template>
+                <p class="comment-content">
+                    {{ comment.content }}
+                </p>
+            </div>
+        </div>
+
+        <div class="row comment" *ngIf="editedCommentIndex === i">
+
+            <div *ngIf="comment?.user.imageUrl" class="col-1 user"
+                style="margin-top:-4px;">
+                <img class="rounded-circle" src="{{ user?.imageUrl }}" alt="">
+            </div>
+
+            <a *ngIf="!comment?.user.imageUrl"
+                class="col-1 user" style="text-decoration:none"
+            >
+                <div class="comment-image text-center">
+                    {{ comment?.user.firstname+" "+comment?.user.lastname | transformUsername }}
+                </div>
+            </a>
+
+            <div class="col-10 body">
+                <div class="edit-comment form-group">
+                    <input type="text" [formControl]="editedComment" (keyup.enter)="editComment(post,comment)"
+                        class="form-control float-left"
+                        style="width: 75%;"
+                    >
+                    <button mat-raised-button color="primary"
+                         class="float-right"
+                         [disabled]="editedComment.invalid" 
+                         (click)="editComment(post,comment)"
+                    >Edit</button>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+
+        <div class="row comment">
+            <div *ngIf="user?.imageUrl"
+            class="col-1 user" style="margin-top:12px;">
+                <img class="rounded-circle" src="{{ user?.imageUrl }}" alt="">
+            </div>
+
+            <a *ngIf="!user?.imageUrl"
+                class="col-1 user" style="text-decoration:none;margin-top:12px;"
+            >
+                <div class="comment-image text-center">
+                    {{ user?.firstname+" "+user?.lastname | transformUsername }}
+                </div>
+            </a>
+
+            <div class="col-10 body">
+                <div class="new-comment form-group">
+                    <input type="text" [formControl]="newComment" (keyup.enter)="onEnterComment(post)"
+                        class="form-control float-left"
+                        style="width: 75%;"
+                    >
+                    <button mat-raised-button color="primary"
+                        [disabled]="newComment.invalid"
+                         class="float-right" (click)="onEnterComment(post)"
+                    >Share</button>
+                    <div class="clearfix"></div> 
+                </div>
+            </div>
+        </div>
+        
+    </div>
+  </div>
+</div>
+
+</ng-template>

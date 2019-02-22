@@ -1,0 +1,9 @@
+
+    <app-create-post *ngIf="(!isProfile || user?.id === userId)"></app-create-post>
+
+    <app-posts-list
+    [userId]="userId"
+    ></app-posts-list>
+
+  
+  

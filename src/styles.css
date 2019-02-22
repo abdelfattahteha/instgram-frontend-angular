@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "https://use.fontawesome.com/releases/v5.6.1/css/all.css";
+@import "assets/styles/bootstrap-social.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+    background-color: #f9f9f9;
+}

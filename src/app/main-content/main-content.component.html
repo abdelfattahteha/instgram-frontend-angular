@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+
+    <!-- user-details -->  
+    <div class="col-md-5 col-lg-4 col-xl-4">
+      <app-user-details 
+        [isProfile]="isProfile"
+      ></app-user-details>
+    </div>
+    
+    <!-- posts-section -->
+    <div class="col-md-7 col-lg-8 col-xl-8">
+      <app-posts-section
+      [isProfile]="isProfile" [userId]="userId"
+      ></app-posts-section>
+    </div>
+    
+  </div>
+</div>

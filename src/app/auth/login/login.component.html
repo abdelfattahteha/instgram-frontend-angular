@@ -1,0 +1,94 @@
+<!-- dashboard -->
+<div class="container my-container" >
+  <div class="dashboard">
+      <div class="row">
+          <div class="col-12 text-center">
+              <h3>Login</h3>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-6 text-center login" style="padding-bottom:40px">
+            <div *ngIf="backEndValidation" class="alert alert-danger" role="alert">
+                {{ backEndValidation}}
+              </div>
+              <form [formGroup]="form" #ngForm="ngForm" (ngSubmit)="submitLogin()">
+                  <div class="form-group text-left">
+                      <input type="text" 
+                      formControlName="email"
+                      class="form-control"
+                      [ngClass]="{'is-invalid': backEndValidation}" 
+                      placeholder="Email Address">
+                      
+                      <div class="invalid" *ngIf="(form.get('email')?.invalid && form.get('email')?.touched) || 
+                      (ngForm.submitted && form.get('email').invalid)">
+                        <span *ngIf="form.get('email').errors.required">
+                            Email is Required
+                        </span>
+                        <span *ngIf="form.get('email').errors.email">
+                            E-mail not valid
+                        </span>
+                      </div>
+                  </div>
+                  
+
+
+                  <div class="form-group text-left">
+                      <input type="password" 
+                      formControlName="password"
+                      class="form-control" 
+                      [ngClass]="{'is-invalid': backEndValidation}"
+                      placeholder="Password">
+                      <div class="invalid" *ngIf="(form.get('password')?.invalid && form.get('password')?.touched) || 
+                      (ngForm.submitted && form.get('password').invalid)">
+                        <span *ngIf="form.get('password').errors.required">
+                            Password is Required
+                        </span>
+                        <span *ngIf="form.get('password').errors.minlength">
+                            Password must be at least 6 length
+                        </span>
+                      </div>
+                  </div>
+                  
+                  
+                  <!-- <div class="custom-control custom-checkbox float-left">
+                      <input type="checkbox" class="custom-control-input" id="customCheck1">
+                      <label class="custom-control-label" for="customCheck1">keep me loggen in.</label>
+                  </div>
+                  <div class="forget-password float-right">
+                      <a href="">Forget Password?</a>
+                  </div> -->
+                  <div class="clearfix"></div>
+                  <button type="submit" class="btn btn-primary submit"
+                  [disabled]="isLoading">{{ isLoading ? 'Loading...' : 'LogIn'}}</button>
+              </form>
+          </div>
+          <div class="col-md-6 text-center social">
+              <a (click)="facebookLogin()"
+              class="btn btn-block btn-social btn-facebook" style="display:inline-block;margin-bottom:9px">
+                  <i class="fab fa-facebook-f"></i> Log in with Facebook
+              </a>
+              <a (click)="googleLogin()"
+              class="btn btn-block btn-social btn-google">
+                  <i class="fab fa-google"></i> Log in with Google
+              </a>
+          </div>
+          
+      </div> 
+  </div>
+</div>
+<div class="container my-container">
+  <div class="create-account">
+      <div class="row">
+          <div class="col-12 text-center">
+              <p><span>Don’t have an account?</span> <a routerLink="/auth/signup">Create an account</a></p>
+          </div>
+      </div> 
+  </div>
+</div>
+
+
+<!-- <div class="container my-container text-center">
+  <footer class="footer">
+      <p>©Mahmoud Abdelfattah | 2018.</p>
+  </footer>
+</div> -->

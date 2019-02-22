@@ -1,0 +1,58 @@
+<header id="header" >
+  <nav id="navbar" >
+      <div class="container">
+          <div class="row">
+              <div class="col-3 text-left">
+                  <a routerLink="/home" class="brand">
+                      <img src="../assets/images/brand.png" alt="Instgram">
+                  </a>
+              </div>
+
+
+
+              <ng-template [ngIf]="authService.isLoggedIn()">     
+                <div class="col-9 text-right user-options">
+                
+                    <a *ngIf="user?.imageUrl">
+                        <img 
+                        mat-button [matMenuTriggerFor]="menu"
+                        style="cursor:pointer"
+                        class="rounded-circle options-img" 
+                        src="{{ user?.imageUrl }}" 
+                        alt="">
+                    </a>
+                    
+                    
+                    <a *ngIf="!user?.imageUrl">
+                        <div 
+                        mat-button [matMenuTriggerFor]="menu"
+                        style="cursor:pointer"
+                        class="user-image text-center">
+                            {{ user?.firstname + " " + user?.lastname | transformUsername }}
+                        </div>
+                    </a>  
+                    
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item [routerLink]="['/profile/user', user?.id]">Profile</button>
+                    <button mat-menu-item routerLink="/home">Home</button>
+                    <button mat-menu-item (click)="logout()">Logout</button>
+                  </mat-menu>
+
+              </div>
+            </ng-template>  
+
+               <!--if user not logged ing -->
+
+              <ng-template [ngIf]="!authService.isLoggedIn()">
+              <div class="col-9 text-right buttons">
+                  <div>
+                      <a routerLink="/auth/signup" class="btn btn-primary signup">Sign-up</a>
+                      <a routerLink="/auth/login" class="login">login</a>
+                  </div>
+                  
+              </div>
+            </ng-template>
+          </div>
+      </div>
+  </nav>
+</header>

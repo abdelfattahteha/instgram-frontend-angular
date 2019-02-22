@@ -1,0 +1,72 @@
+/* header */
+header {
+    background-color: #ffffff;
+    min-height: 65px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #d4d4d4;
+    margin-bottom: 20px;
+}
+
+header .brand {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+header .buttons {
+    padding-top: 15px;
+}
+
+header .buttons .signup {
+    border-radius: 14px;
+    height:29px;
+    line-height:13px;
+    background-color: #4090db;
+    font-size: 14px;
+}
+
+header .login {
+    text-decoration: none;
+    color:#4090db;
+    font-size: 17px;
+    margin-left: 10px;
+    line-height:30px;
+}
+
+header .user-options {
+    padding-top: 18px;
+}
+.notification {
+    font-size: 25px;
+    color: #686767;
+    margin-right: 1px;
+    cursor: pointer; 
+}
+.notification:hover {
+    color: #4090db;
+}
+.is-notificated {
+    color: #4090db;
+}
+.notification-wrapper{
+    margin-right: 18px;
+}
+.options-img {
+    width:45px;
+    height:45px;
+}
+.user-image {
+    display: inline-block;
+    background-color: #4090db;
+    /* margin-bottom: 50px;  */
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    line-height: 45px;
+    color: #ffffff;
+}
+
+
+/*  sm and xs screens  */
+@media (max-width: 767.98px) { 
+
+}
