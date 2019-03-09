@@ -5,6 +5,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## About App
 Frontend app with angular that clones facebook
 
+You can check project preview on youtube - [youtube video](https://www.youtube.com/watch?v=YvEOmFwjc-E)
+
 ## Setup 
 
 1- Run `npm install` to install all dependencies.
